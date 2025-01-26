@@ -24,13 +24,9 @@ julia> ENV["PYTHON"]="/anaconda/bin/python"
 
 Restarting the REPL in VSCode is easy. **Press Alt + J and then Alt + R**.
 
-
-
 ## 2. juliaからpythonの自作関数を呼び出す方法
 
 同じディレクトリにtest_impourt.pyを作り、その関数名def test(a,b)を呼び出す構文は以下の通り
-
-
 
 ```julia
 pushfirst!(PyVector(pyimport("sys")["path"]), @__DIR__)
@@ -51,8 +47,6 @@ def test(a,b):
 
 [Juliaで自作Pythonパッケージを呼び出す手法 #Python - Qiita](https://qiita.com/takahashi-ry/items/3ff9af58fc3c9175574a)
 
-
-
 ## 3. Juliaでpickleを読み書きする
 
 ```julia
@@ -63,15 +57,13 @@ kern_params = read_pickle("./dataset/kernel_params.pickle");
 
 のようにJuliaのPandasライブラリでコーディングするのが、最もシンプル。ただしこれを使うと、DataFrameを使うときに、using DataFramesとusing Pandasとでバッティングするので、以下のように、DataFrames.DataFrameのように明示する必要がある。
 
-``` julia
+```julia
 latents_bar = DataFrames.DataFrame(load(File(format"CSV", "./dataset/latents_gplvm.csv"); delim=',', header_exists=true))
 ```
 
 参考リンク  
 
 [How to load python pickle from Julia? - Stack Overflow](https://stackoverflow.com/questions/65720584/how-to-load-python-pickle-from-julia)
-
-
 
 一方、pickleの書き出しは、以下のようにpython pickleを使った方がよさそう
 
@@ -84,6 +76,6 @@ pickle.dump(kern_params, out)
 close(out)
 ```
 
+## 4. Optimを使った最適化
 
-
-
+HMCのロジスティック回帰の最適化(logreg.md)に詳しくコード例を記載した。あまり記事には見かけない方法なので貴重。
